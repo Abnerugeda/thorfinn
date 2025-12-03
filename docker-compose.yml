@@ -1,0 +1,84 @@
+services:
+  canute-car-rental-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: canute-car-rental-api
+    working_dir: /workspace/apps/canute-car-rental-api
+    command: pnpm start:dev
+    volumes:
+      - .:/workspace
+    ports:
+      - '3001:3000'
+    depends_on:
+      - postgres
+    networks:
+      - monorepo-thorfin
+
+  einar-flight-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: einar-flight-api
+    working_dir: /workspace/apps/einar-flight-api
+    command: pnpm start:dev
+    volumes:
+      - .:/workspace
+    ports:
+      - '3002:3000'
+    depends_on:
+      - postgres
+    networks:
+      - monorepo-thorfin
+
+  leif-hotel-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: leif-hotel-api
+    working_dir: /workspace/apps/leif-hotel-api
+    command: pnpm start:dev
+    volumes:
+      - .:/workspace
+    ports:
+      - '3003:3000'
+    depends_on:
+      - postgres
+    networks:
+      - monorepo-thorfin
+
+  thors-payment-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: thors-payment-api
+    working_dir: /workspace/apps/thors-payment-api
+    command: pnpm start:dev
+    volumes:
+      - .:/workspace
+    ports:
+      - '3004:3000'
+    depends_on:
+      - postgres
+    networks:
+      - monorepo-thorfin
+
+  postgres:
+    image: postgres:15.15-trixie
+    container_name: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: thorfin
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - monorepo-thorfin
+
+networks:
+  monorepo-thorfin:
+
+volumes:
+  pgdata:
