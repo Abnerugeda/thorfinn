@@ -1,11 +1,10 @@
 services:
   canute-car-rental-api:
     build:
-      context: .
+      context: apps/canute-car-rental-api
       dockerfile: Dockerfile.dev
     container_name: canute-car-rental-api
     working_dir: /workspace/apps/canute-car-rental-api
-    command: pnpm start:dev
     volumes:
       - .:/workspace
     ports:
@@ -16,28 +15,26 @@ services:
       - monorepo-thorfin
 
   einar-flight-api:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    container_name: einar-flight-api
-    working_dir: /workspace/apps/einar-flight-api
-    command: pnpm start:dev
-    volumes:
-      - .:/workspace
-    ports:
-      - '3002:3000'
-    depends_on:
-      - postgres
-    networks:
-      - monorepo-thorfin
+      build:
+        context: apps/einar-flight-api
+        dockerfile: Dockerfile.dev
+      container_name: einar-flight-api
+      working_dir: /workspace/apps/einar-flight-api
+      volumes:
+        - .:/workspace
+      ports:
+        - '3002:3000'
+      depends_on:
+        - postgres
+      networks:
+        - monorepo-thorfin
 
   leif-hotel-api:
     build:
-      context: .
+      context: apps/leif-hotel-api
       dockerfile: Dockerfile.dev
     container_name: leif-hotel-api
     working_dir: /workspace/apps/leif-hotel-api
-    command: pnpm start:dev
     volumes:
       - .:/workspace
     ports:
@@ -49,11 +46,10 @@ services:
 
   thors-payment-api:
     build:
-      context: .
+      context: apps/thors-payment-api
       dockerfile: Dockerfile.dev
     container_name: thors-payment-api
     working_dir: /workspace/apps/thors-payment-api
-    command: pnpm start:dev
     volumes:
       - .:/workspace
     ports:
@@ -62,6 +58,7 @@ services:
       - postgres
     networks:
       - monorepo-thorfin
+
 
   postgres:
     image: postgres:15.15-trixie

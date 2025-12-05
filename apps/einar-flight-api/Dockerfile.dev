@@ -1,0 +1,9 @@
+FROM viniciushansel/base-node
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN pnpm install
+
+COPY . .
+CMD ["pnpm", "start:dev"]
