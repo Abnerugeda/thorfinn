@@ -122,7 +122,7 @@ services:
       debezium-connect:
         condition: service_healthy
     volumes:
-      - ./config.sh:/config.sh
+      - ./debezium/config.sh:/config.sh
     entrypoint: ['sh', '/config.sh']
     networks:
       - monorepo-thorfin
